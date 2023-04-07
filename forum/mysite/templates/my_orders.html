@@ -1,0 +1,41 @@
+{% extends "base_generate.html" %}
+{% block content %}
+{% load static %}
+
+
+<div class="main">
+
+    <form method="get">
+        <button type="submit" class="btn btn-sm btn-primary btn-raised mr-3">Сортировать</button>
+        <input name="sort" type="checkbox" value="datetime" {{ by_datetime }}>по дате
+        <input name="sort" type="checkbox" value="type" {{ by_type }}>по типу
+    </form>
+    {% for req in articles %}
+            {% if req.person == request.user %}
+                <div class="container d-flex" id="container">
+                    <div class="d-flex text" id="text">
+                        <div class="container-text" id ='container-text'>
+                           <p>{{req.text}}</p>
+                        </div>
+                        <div class="container-text-sec">
+                            <p>Категория: {{req.type}}</p>
+                            <div class="datetime">{{req.datetime}}</div>
+                            <div class="123">{{req.status}}</div>
+                        </div>
+                    </div>
+                    {% if req.img %}
+                    <div class="start-img">
+                        <img src="{{ req.img.url }}">
+                    </div>
+                    {% endif %}
+                    <form method="GET">
+                        <button type="submit" value="Удалить">Удалить</button>
+                    </form>
+                </div>
+            {% endif %}
+    {% endfor %}
+
+
+</div>
+
+{%endblock%}
